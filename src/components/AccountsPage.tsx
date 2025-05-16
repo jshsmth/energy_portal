@@ -1,5 +1,6 @@
 "use client";
 
+import AccountCard from "./AccountCard";
 import FilterBar from "./FilterBar";
 import NavBar from "./NavBar";
 import { useState } from "react";
@@ -41,14 +42,8 @@ export default function AccountsPage() {
   }) => {
     // Simulate payment delay
     await new Promise((res) => setTimeout(res, 1000));
-    // Update account balance to zero after payment
-    if (selectedAccount) {
-      setAccounts(
-        accounts.map((acc) =>
-          acc.id === selectedAccount.id ? { ...acc, balance: 0 } : acc
-        )
-      );
-    }
+   // TODO: PAYMENT LOGIC
+   
     // Close the modal
     setModalOpen(false);
   };
@@ -59,9 +54,10 @@ export default function AccountsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <FilterBar filter={filter} setFilter={setFilter} />
         <div className="flex flex-col gap-4 items-center mt-4">
-          {/* {filteredAccounts.map(account => (
-            Account card to go here
-          ))} */}
+          <AccountCard
+            account={filteredAccounts[0]}
+            onMakePayment={handleMakePayment}
+          />
         </div>
         {/* <PaymentModal to go here
         /> */}
