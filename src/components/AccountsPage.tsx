@@ -4,12 +4,13 @@ import AccountCard from "./AccountCard";
 import FilterBar from "./FilterBar";
 import NavBar from "./NavBar";
 import { useState } from "react";
+import PaymentModal from "./PaymentModal";
 
 // Mock data for energy accounts
 const mockAccounts = [
-  { id: 1, address: "123 Main St", balance: 100, energyType: "solar" },
-  { id: 2, address: "456 Oak Ave", balance: -50, energyType: "wind" },
-  { id: 3, address: "789 Pine Rd", balance: 0, energyType: "hydro" },
+  { id: 1, address: "123 Main St", balance: 100, energyType: "Electricity" },
+  { id: 2, address: "456 Oak Ave", balance: -50, energyType: "Gas" },
+  { id: 3, address: "789 Pine Rd", balance: 0, energyType: "Solar" },
 ];
 
 export default function AccountsPage() {
@@ -43,7 +44,7 @@ export default function AccountsPage() {
     // Simulate payment delay
     await new Promise((res) => setTimeout(res, 1000));
    // TODO: PAYMENT LOGIC
-   
+
     // Close the modal
     setModalOpen(false);
   };
@@ -54,13 +55,20 @@ export default function AccountsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <FilterBar filter={filter} setFilter={setFilter} />
         <div className="flex flex-col gap-4 items-center mt-4">
-          <AccountCard
-            account={filteredAccounts[0]}
-            onMakePayment={handleMakePayment}
-          />
+          {filteredAccounts.map((account) => (
+            <AccountCard
+              key={account.id}
+              account={account}
+              onMakePayment={handleMakePayment}
+            />
+          ))}
         </div>
-        {/* <PaymentModal to go here
-        /> */}
+        <PaymentModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          account={selectedAccount}
+          onPay={handlePay}
+        />
       </main>
     </div>
   );
