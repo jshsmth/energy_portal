@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { Account } from "../../accounts/types/accounts";
 
 interface CardDetails {
   number: string;
@@ -6,15 +7,8 @@ interface CardDetails {
   cvc: string;
 }
 
-interface Account {
-  id: number;
-  address: string;
-  balance: number;
-  energyType: string;
-}
-
 interface UsePaymentModalProps {
-  onPay: (card: CardDetails, amount: number) => Promise<void>;
+  onPay: (card: { number: string; expiry: string; cvc: string }, amount: number) => Promise<void>;
   onClose: () => void;
   account: Account | null;
 }

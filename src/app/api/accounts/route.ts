@@ -1,33 +1,31 @@
 import { NextResponse } from 'next/server';
-
-const mockEnergyAccounts = [
-  { id: 1, address: "123 Main St", energyType: "Electricity" },
-  { id: 2, address: "456 Oak Ave", energyType: "Gas" },
-  { id: 3, address: "789 Pine Rd", energyType: "Solar" },
-];
-
-const mockDueCharges = [
-  { accountId: 1, amount: 100 },
-  { accountId: 2, amount: -50 },
-  { accountId: 3, amount: 0 },
-];
+import { MOCK_ENERGY_ACCOUNTS_API } from '../mocks/energyAccountsAPIMock';
+import { MOCK_DUE_CHARGES_API } from '../mocks/dueChargesAPIMock';
 
 export async function GET() {
   try {
+    const [accounts, charges] = await Promise.all([
+      MOCK_ENERGY_ACCOUNTS_API(),
+      MOCK_DUE_CHARGES_API()
+    ]);
 
-    // Calculate balance for each account
-    const accountsWithBalance = mockEnergyAccounts.map(account => {
-      const charges = mockDueCharges.find(charge => charge.accountId === account.id);
+    // Calculate total balance for each account
+    const accountsWithBalance = accounts.map(account => {
+      const accountCharges = charges.filter(charge => charge.accountId === account.id);
+      const balance = accountCharges.reduce((sum, charge) => sum + charge.amount, 0);
+      
       return {
         ...account,
-        balance: charges?.amount ?? 0
+        energyType: account.type,
+        balance,
+        dueCharges: accountCharges
       };
     });
 
     return NextResponse.json(accountsWithBalance);
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to fetch accounts' },
+      { error: 'Failed to fetch energy accounts' },
       { status: 500 }
     );
   }

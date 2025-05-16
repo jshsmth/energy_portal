@@ -3,16 +3,12 @@
 import { Dialog, DialogPanel, DialogTitle, Description, DialogBackdrop } from "@headlessui/react";
 import { usePaymentModal } from "../hooks/usePaymentModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import type { Account } from "../../accounts/types/accounts";
 
 interface PaymentModalProps {
   open: boolean;
   onClose: () => void;
-  account: {
-    id: number;
-    address: string;
-    balance: number;
-    energyType: string;
-  } | null;
+  account: Account | null;
   onPay: (card: { number: string; expiry: string; cvc: string }, amount: number) => Promise<void>;
 }
 

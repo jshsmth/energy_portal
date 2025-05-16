@@ -15,9 +15,8 @@ export default function FilterBar({ filter, setFilter }: FilterBarProps) {
         onChange={(e) => setFilter({ ...filter, energyType: e.target.value })}
       >
         <option value="">All Energy Types</option>
-        <option value="solar">Solar</option>
-        <option value="wind">Wind</option>
-        <option value="hydro">Hydro</option>
+        <option value="ELECTRICITY">Electricity</option>
+        <option value="GAS">Gas</option>
       </select>
       <input
         type="text"

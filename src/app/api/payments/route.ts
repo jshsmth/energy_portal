@@ -1,22 +1,73 @@
 import { NextResponse } from 'next/server';
+import { MOCK_ENERGY_ACCOUNTS_API } from '../mocks/energyAccountsAPIMock';
+import { MOCK_DUE_CHARGES_API } from '../mocks/dueChargesAPIMock';
 
-// Initialize empty payment history
-let paymentHistory: Array<{
+interface Payment {
   id: number;
-  accountId: number;
+  accountId: string;
   amount: number;
   date: string;
-  status: string;
-}> = [];
+  status: 'success' | 'failed';
+  chargeIds: string[];
+}
+
+// Initialize empty payment history
+let paymentHistory: Payment[] = [];
 
 export async function POST(request: Request) {
   try {
-    const { accountId, amount, cardDetails } = await request.json();
+    const body = await request.json();
+    const { accountId, amount, cardDetails } = body;
 
+    // Validate request body
+    if (!accountId || !amount || !cardDetails) {
+      return NextResponse.json(
+        { error: 'Missing required fields: accountId, amount, or cardDetails' },
+        { status: 400 }
+      );
+    }
 
+    // Validate card details
     if (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvc) {
       return NextResponse.json(
         { error: 'Invalid card details' },
+        { status: 400 }
+      );
+    }
+
+    // Validate amount is positive
+    if (amount <= 0) {
+      return NextResponse.json(
+        { error: 'Payment amount must be greater than 0' },
+        { status: 400 }
+      );
+    }
+
+    // Validate account exists
+    const accounts = await MOCK_ENERGY_ACCOUNTS_API();
+    const account = accounts.find(acc => acc.id === accountId);
+    
+    if (!account) {
+      return NextResponse.json(
+        { error: 'Account not found' },
+        { status: 404 }
+      );
+    }
+
+    // Get due charges for the account
+    const dueCharges = await MOCK_DUE_CHARGES_API();
+    const accountCharges = dueCharges.filter(charge => charge.accountId === accountId);
+    
+    // Calculate total due amount
+    const totalDue = accountCharges.reduce((sum, charge) => sum + charge.amount, 0);
+    
+    if (amount < totalDue) {
+      return NextResponse.json(
+        { 
+          error: 'Payment amount is less than total due amount',
+          totalDue,
+          currentAmount: amount
+        },
         { status: 400 }
       );
     }
@@ -25,20 +76,29 @@ export async function POST(request: Request) {
     await new Promise((res) => setTimeout(res, 1000));
 
     // Record the payment
-    const payment = {
+    const payment: Payment = {
       id: paymentHistory.length + 1,
       accountId,
       amount,
       date: new Date().toISOString().split('T')[0],
-      status: 'success'
+      status: 'success',
+      chargeIds: accountCharges.map(charge => charge.id)
     };
 
     paymentHistory.push(payment);
 
-    return NextResponse.json(payment);
+    return NextResponse.json({
+      ...payment,
+      accountType: account.type,
+      address: account.address
+    });
   } catch (error) {
+    console.error('Payment processing error:', error);
     return NextResponse.json(
-      { error: 'Payment processing failed' },
+      { 
+        error: 'Payment processing failed',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     );
   }

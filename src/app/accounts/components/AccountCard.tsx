@@ -1,14 +1,10 @@
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { Account } from "../types/accounts";
 
 interface AccountCardProps {
-  account: {
-    id: number;
-    address: string;
-    balance: number;
-    energyType: string;
-  };
-  onMakePayment?: (account: AccountCardProps["account"]) => void;
+  account: Account;
+  onMakePayment?: (account: Account) => void;
 }
 
 export default function AccountCard({ account, onMakePayment }: AccountCardProps) {

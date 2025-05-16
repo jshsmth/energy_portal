@@ -1,12 +1,22 @@
+export type EnergyType = 'ELECTRICITY' | 'GAS';
+
 export interface Account {
-  id: number;
+  id: string;
   address: string;
   balance: number;
-  energyType: string;
+  energyType: EnergyType;
+  meterNumber?: string;
+  volume?: number;
+  dueCharges?: Array<{
+    id: string;
+    accountId: string;
+    date: string;
+    amount: number;
+  }>;
 }
 
 export interface Filter {
-  energyType: string;
+  energyType: EnergyType | '';
   search: string;
 }
 
