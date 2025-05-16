@@ -11,7 +11,6 @@ interface Payment {
   chargeIds: string[];
 }
 
-// Initialize empty payment history
 let paymentHistory: Payment[] = [];
 
 export async function POST(request: Request) {
@@ -19,7 +18,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { accountId, amount, cardDetails } = body;
 
-    // Validate request body
     if (!accountId || !amount || !cardDetails) {
       return NextResponse.json(
         { error: 'Missing required fields: accountId, amount, or cardDetails' },
@@ -27,7 +25,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate card details
     if (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvc) {
       return NextResponse.json(
         { error: 'Invalid card details' },
@@ -35,7 +32,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate amount is positive
     if (amount <= 0) {
       return NextResponse.json(
         { error: 'Payment amount must be greater than 0' },
@@ -43,7 +39,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate account exists
     const accounts = await MOCK_ENERGY_ACCOUNTS_API();
     const account = accounts.find(acc => acc.id === accountId);
     
@@ -54,11 +49,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Get due charges for the account
     const dueCharges = await MOCK_DUE_CHARGES_API();
     const accountCharges = dueCharges.filter(charge => charge.accountId === accountId);
     
-    // Calculate total due amount
     const totalDue = accountCharges.reduce((sum, charge) => sum + charge.amount, 0);
     
     if (amount < totalDue) {
@@ -72,10 +65,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Simulate payment processing
     await new Promise((res) => setTimeout(res, 1000));
 
-    // Record the payment
     const payment: Payment = {
       id: paymentHistory.length + 1,
       accountId,
