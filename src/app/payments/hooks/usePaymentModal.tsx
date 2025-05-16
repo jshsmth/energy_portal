@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import type { Account } from "../../accounts/types/accounts";
 
 interface CardDetails {
@@ -8,7 +8,10 @@ interface CardDetails {
 }
 
 interface UsePaymentModalProps {
-  onPay: (card: { number: string; expiry: string; cvc: string }, amount: number) => Promise<void>;
+  onPay: (
+    card: { number: string; expiry: string; cvc: string },
+    amount: number
+  ) => Promise<void>;
   onClose: () => void;
   account: Account | null;
 }
@@ -27,8 +30,16 @@ interface UsePaymentModalReturn {
   getBalanceMessage: () => string;
 }
 
-export const usePaymentModal = ({ onPay, onClose, account }: UsePaymentModalProps): UsePaymentModalReturn => {
-  const [card, setCard] = useState<CardDetails>({ number: "", expiry: "", cvc: "" });
+export const usePaymentModal = ({
+  onPay,
+  onClose,
+  account,
+}: UsePaymentModalProps): UsePaymentModalReturn => {
+  const [card, setCard] = useState<CardDetails>({
+    number: "",
+    expiry: "",
+    cvc: "",
+  });
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -43,13 +54,21 @@ export const usePaymentModal = ({ onPay, onClose, account }: UsePaymentModalProp
       if (isNaN(paymentAmount) || paymentAmount <= 0) {
         throw new Error("Please enter a valid amount");
       }
-      if (account && account.balance < 0 && paymentAmount > Math.abs(account.balance)) {
+      if (
+        account &&
+        account.balance < 0 &&
+        paymentAmount > Math.abs(account.balance)
+      ) {
         throw new Error("Payment amount cannot exceed outstanding balance");
       }
       await onPay(card, paymentAmount);
       setSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An error occurred during payment");
+      setError(
+        error instanceof Error
+          ? error.message
+          : "An error occurred during payment"
+      );
     } finally {
       setLoading(false);
     }
@@ -65,7 +84,7 @@ export const usePaymentModal = ({ onPay, onClose, account }: UsePaymentModalProp
 
   const clearError = () => {
     setError(null);
-  }
+  };
 
   const getBalanceMessage = () => {
     if (!account) return "";
@@ -91,4 +110,4 @@ export const usePaymentModal = ({ onPay, onClose, account }: UsePaymentModalProp
     clearError,
     getBalanceMessage,
   };
-}; 
+};

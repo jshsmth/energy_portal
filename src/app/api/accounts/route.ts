@@ -23,7 +23,7 @@ export async function GET() {
     });
 
     return NextResponse.json(accountsWithBalance);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch energy accounts' },
       { status: 500 }

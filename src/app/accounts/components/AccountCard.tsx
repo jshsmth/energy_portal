@@ -7,7 +7,10 @@ interface AccountCardProps {
   onMakePayment?: (account: Account) => void;
 }
 
-export default function AccountCard({ account, onMakePayment }: AccountCardProps) {
+export default function AccountCard({
+  account,
+  onMakePayment,
+}: AccountCardProps) {
   const balanceClass = twMerge(
     clsx(
       "font-bold text-lg",
@@ -30,4 +33,4 @@ export default function AccountCard({ account, onMakePayment }: AccountCardProps
       </button>
     </div>
   );
-} 
+}

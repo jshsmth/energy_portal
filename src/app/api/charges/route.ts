@@ -14,7 +14,7 @@ export async function GET(request: Request) {
       : charges;
 
     return NextResponse.json(filteredCharges);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch due charges' },
       { status: 500 }

@@ -1,12 +1,17 @@
 import * as React from "react";
-import type { Account, Filter, CardDetails, PaymentResponse } from "../types/accounts";
+import type { Account, Filter, CardDetails } from "../types/accounts";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants/accounts";
 
 export const useAccountsPage = () => {
   const [accounts, setAccounts] = React.useState<Account[]>([]);
-  const [filter, setFilter] = React.useState<Filter>({ energyType: "", search: "" });
+  const [filter, setFilter] = React.useState<Filter>({
+    energyType: "",
+    search: "",
+  });
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [selectedAccount, setSelectedAccount] = React.useState<Account | null>(null);
+  const [selectedAccount, setSelectedAccount] = React.useState<Account | null>(
+    null
+  );
   const [paymentSuccess, setPaymentSuccess] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -21,7 +26,7 @@ export const useAccountsPage = () => {
       if (!response.ok) throw new Error(ERROR_MESSAGES.FETCH_ACCOUNTS);
       const data = await response.json();
       setAccounts(data);
-    } catch (err) {
+    } catch {
       setError(ERROR_MESSAGES.FETCH_ACCOUNTS);
     } finally {
       setLoading(false);
@@ -37,7 +42,9 @@ export const useAccountsPage = () => {
     }
 
     if (filter.search) {
-      matchesSearch = account.address.toLowerCase().includes(filter.search.toLowerCase());
+      matchesSearch = account.address
+        .toLowerCase()
+        .includes(filter.search.toLowerCase());
     }
 
     return matchesEnergyType && matchesSearch;
@@ -54,9 +61,9 @@ export const useAccountsPage = () => {
       if (!selectedAccount) return;
 
       const response = await fetch(API_ENDPOINTS.PAYMENTS, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           accountId: selectedAccount.id,
@@ -69,15 +76,17 @@ export const useAccountsPage = () => {
         throw new Error(ERROR_MESSAGES.PAYMENT_FAILED);
       }
 
-      const data: PaymentResponse = await response.json();
+      await response.json();
       setPaymentSuccess(true);
-      
-      setAccounts(accounts.map(account => 
-        account.id === selectedAccount.id 
-          ? { ...account, balance: account.balance + amount }
-          : account
-      ));
-    } catch (error) {
+
+      setAccounts(
+        accounts.map((account) =>
+          account.id === selectedAccount.id
+            ? { ...account, balance: account.balance + amount }
+            : account
+        )
+      );
+    } catch {
       setError(ERROR_MESSAGES.PAYMENT_FAILED);
     }
   };
@@ -100,4 +109,4 @@ export const useAccountsPage = () => {
     handlePay,
     closeModal,
   };
-}; 
+};

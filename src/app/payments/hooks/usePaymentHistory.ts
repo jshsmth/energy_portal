@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 type Payment = {
   id: number;
@@ -19,12 +19,12 @@ export const usePaymentHistory = () => {
 
   const fetchPayments = async () => {
     try {
-      const response = await fetch('/api/payments');
-      if (!response.ok) throw new Error('Failed to fetch payments');
+      const response = await fetch("/api/payments");
+      if (!response.ok) throw new Error("Failed to fetch payments");
       const data = await response.json();
       setPayments(data);
-    } catch (err) {
-      setError('Failed to load payment history. Please try again later.');
+    } catch {
+      setError("Failed to load payment history. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -34,6 +34,6 @@ export const usePaymentHistory = () => {
     payments,
     loading,
     error,
-    refreshPayments: fetchPayments
+    refreshPayments: fetchPayments,
   };
-}; 
+};

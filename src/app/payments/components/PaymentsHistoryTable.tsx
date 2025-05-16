@@ -1,6 +1,5 @@
 import { usePaymentHistory } from "../hooks/usePaymentHistory";
 
-
 export const PaymentsHistoryTable = () => {
   const { payments, loading, error } = usePaymentHistory();
 
@@ -62,4 +61,4 @@ export const PaymentsHistoryTable = () => {
       </table>
     </div>
   );
-}; 
+};

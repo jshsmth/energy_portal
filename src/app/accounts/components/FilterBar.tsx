@@ -1,9 +1,9 @@
+import type { Filter } from "../types/accounts";
+import { Dispatch, SetStateAction } from "react";
+
 interface FilterBarProps {
-  filter: {
-    energyType: string;
-    search: string;
-  };
-  setFilter: (filter: { energyType: string; search: string }) => void;
+  filter: Filter;
+  setFilter: Dispatch<SetStateAction<Filter>>;
 }
 
 export default function FilterBar({ filter, setFilter }: FilterBarProps) {
@@ -12,7 +12,12 @@ export default function FilterBar({ filter, setFilter }: FilterBarProps) {
       <select
         className="border rounded p-2"
         value={filter.energyType}
-        onChange={(e) => setFilter({ ...filter, energyType: e.target.value })}
+        onChange={(e) =>
+          setFilter({
+            ...filter,
+            energyType: e.target.value as Filter["energyType"],
+          })
+        }
       >
         <option value="">All Energy Types</option>
         <option value="ELECTRICITY">Electricity</option>
@@ -27,4 +32,4 @@ export default function FilterBar({ filter, setFilter }: FilterBarProps) {
       />
     </div>
   );
-} 
+}

@@ -5,10 +5,7 @@ import { PaymentsHistoryTable } from "./components/PaymentsHistoryTable";
 import { usePaymentHistory } from "./hooks/usePaymentHistory";
 
 export default function PaymentsPage() {
-  const {
-    loading,
-    error
-  } = usePaymentHistory();
+  const { loading, error } = usePaymentHistory();
 
   if (loading) {
     return (
@@ -37,4 +34,4 @@ export default function PaymentsPage() {
       </main>
     </div>
   );
-} 
+}

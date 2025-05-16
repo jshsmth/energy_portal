@@ -11,7 +11,7 @@ interface Payment {
   chargeIds: string[];
 }
 
-let paymentHistory: Payment[] = [];
+const paymentHistory: Payment[] = [];
 
 export async function POST(request: Request) {
   try {
@@ -98,7 +98,7 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     return NextResponse.json(paymentHistory);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch payment history' },
       { status: 500 }
