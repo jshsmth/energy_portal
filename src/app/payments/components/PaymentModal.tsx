@@ -1,3 +1,22 @@
+
+// TODO: If I had more time, I would refactor this to use the compound component pattern.
+// This would make the modal more reusable and flexible. Example structure:
+//
+// Example usage:
+// <Modal>
+//   <Modal.Backdrop />
+//   <Modal.Panel>
+//     <Modal.Title>Make a Payment</Modal.Title>
+//     <Modal.Description>Payment details...</Modal.Description>
+//     <Modal.Content>
+//       {/* Form content */}
+//     </Modal.Content>
+//     <Modal.Footer>
+//       <Modal.Button>Pay</Modal.Button>
+//     </Modal.Footer>
+//   </Modal.Panel>
+// </Modal>
+
 "use client";
 
 import {
@@ -10,6 +29,9 @@ import {
 import { usePaymentModal } from "../hooks/usePaymentModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { Account } from "../../accounts/types/accounts";
+
+
+/* */
 
 interface PaymentModalProps {
   open: boolean;

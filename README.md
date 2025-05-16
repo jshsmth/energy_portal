@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Energy Portal
+
+A modern web application for managing energy accounts and processing payments, built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 📊 View and manage energy accounts
+- 💳 Process credit card payments
+- 🔍 Filter accounts by energy type
+- 🔎 Search accounts by address
+- 📜 View payment history
+
+## Tech Stack
+
+- **Frontend:**
+
+  - Next.js 15
+  - TypeScript
+  - Tailwind CSS
+  - Headless UI
+  - React Hooks
+
+- **Backend:**
+  - Next.js API Routes
+  - TypeScript
+  - Mock API Services
+
+## Prerequisites
+
+- Node.js 18.17 or later
+- npm package manager
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```bash
+   git clone <repository-url>
+   cd energy-portal
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/              # API routes
+│   │   ├── accounts/     # Account-related endpoints
+│   │   ├── charges/      # Due charges endpoints
+│   │   ├── payments/     # Payment processing endpoints
+│   │   └── mocks/        # Mock API services
+│   ├── accounts/         # Account management pages
+│   ├── payments/         # Payment history pages
+│   └── page.tsx          # Home page
+├── shared/              # Shared components
+└── types/              # TypeScript type definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Code Style
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- TypeScript for type safety
+- ESLint for code linting
+- Prettier for code formatting
 
-## Learn More
+### Component Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Functional components with hooks
+- Custom hooks for business logic
+- Shared components for reusability
