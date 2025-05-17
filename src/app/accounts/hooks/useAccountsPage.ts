@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Account, Filter, CardDetails } from "../types/accounts";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "@/app/constants";
+import { useAccountsQuery } from "./useAccountsQuery";
 
 export const useAccountsPage = () => {
   const queryClient = useQueryClient();
@@ -13,14 +14,7 @@ export const useAccountsPage = () => {
   const [selectedAccount, setSelectedAccount] = React.useState<Account | null>(null);
   const [paymentSuccess, setPaymentSuccess] = React.useState(false);
 
-  const { data: accounts = [], isLoading, error } = useQuery({
-    queryKey: ['accounts'],
-    queryFn: async () => {
-      const response = await fetch(API_ENDPOINTS.ACCOUNTS);
-      if (!response.ok) throw new Error(ERROR_MESSAGES.FETCH_ACCOUNTS);
-      return response.json();
-    },
-  });
+  const { data: accounts = [], isLoading, error } = useAccountsQuery();
 
   const paymentMutation = useMutation({
     mutationFn: async ({ card, amount }: { card: CardDetails; amount: number }) => {

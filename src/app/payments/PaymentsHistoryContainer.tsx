@@ -3,7 +3,7 @@ import { PaymentsSkeleton } from "./components/PaymentsSkeleton";
 import { usePaymentHistory } from "./hooks/usePaymentHistory";
 
 export const PaymentsHistoryContainer = () => {
-  const { loading, error } = usePaymentHistory();
+  const { isLoading, error } = usePaymentHistory();
 
   if (error) {
     return (
@@ -13,7 +13,7 @@ export const PaymentsHistoryContainer = () => {
     );
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
