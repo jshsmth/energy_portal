@@ -1,7 +1,3 @@
-import { join } from 'path';
-import { Low } from 'lowdb';
-import { JSONFile } from 'lowdb/node';
-
 // Types
 export interface EnergyAccount {
   id: string;
@@ -113,9 +109,28 @@ const initialData: Database = {
   payments: []
 };
 
-// Configure lowdb
-const file = join(process.cwd(), 'db.json');
-const adapter = new JSONFile<Database>(file);
-const db = new Low<Database>(adapter, initialData);
+// In-memory database
+class InMemoryDB {
+  private _data: Database;
+
+  constructor(initialData: Database) {
+    this._data = { ...initialData };
+  }
+
+  async read(): Promise<void> {
+    // No-op for in-memory database
+  }
+
+  async write(): Promise<void> {
+    // No-op for in-memory database
+  }
+
+  get data(): Database {
+    return this._data;
+  }
+}
+
+// Create and export the database instance
+const db = new InMemoryDB(initialData);
 
 export default db; 

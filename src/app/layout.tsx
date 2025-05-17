@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NavBar } from "../shared/NavBar";
+import { NavBar } from "./shared/NavBar";
 import { TanStackProvider } from "./tanstack-provider";
 import "./globals.css";
 
