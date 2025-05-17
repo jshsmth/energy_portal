@@ -33,22 +33,7 @@ export const useAccountsPage = () => {
     }
   };
 
-  const filteredAccounts = accounts.filter((account) => {
-    let matchesEnergyType = true;
-    let matchesSearch = true;
-
-    if (filter.energyType) {
-      matchesEnergyType = account.energyType === filter.energyType;
-    }
-
-    if (filter.search) {
-      matchesSearch = account.address
-        .toLowerCase()
-        .includes(filter.search.toLowerCase());
-    }
-
-    return matchesEnergyType && matchesSearch;
-  });
+  const filteredAccounts = filterAccounts(accounts, filter);
 
   const handleMakePayment = (account: Account) => {
     setSelectedAccount(account);
@@ -109,4 +94,23 @@ export const useAccountsPage = () => {
     handlePay,
     closeModal,
   };
+};
+
+const filterAccounts = (accounts: Account[], filter: Filter): Account[] => {
+  return accounts.filter((account) => {
+    let matchesEnergyType = true;
+    let matchesSearch = true;
+
+    if (filter.energyType) {
+      matchesEnergyType = account.energyType === filter.energyType;
+    }
+
+    if (filter.search) {
+      matchesSearch = account.address
+        .toLowerCase()
+        .includes(filter.search.toLowerCase());
+    }
+
+    return matchesEnergyType && matchesSearch;
+  });
 };
