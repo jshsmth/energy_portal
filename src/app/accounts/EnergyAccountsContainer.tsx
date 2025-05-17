@@ -56,7 +56,7 @@ export function EnergyAccountsContainer() {
     <div className={twMerge("min-h-screen main-bg-gradient font-sans")}>
       <main className={twMerge("max-w-[1440px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 mt-14 sm:mt-16 md:mt-20")}>
         <div className={twMerge("flex flex-col lg:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8 items-start")}>
-          <aside className={twMerge("hidden 2xl:block w-72 sticky top-24 flex-shrink-0")}>
+          <aside className={twMerge("hidden lg:block w-72 sticky top-24 flex-shrink-0")}>
             <FilterBar filter={filter} setFilter={setFilter} />
           </aside>
           <section className={twMerge("flex-1 w-full")}>
