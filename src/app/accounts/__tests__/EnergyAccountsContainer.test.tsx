@@ -42,7 +42,7 @@ describe('EnergyAccountsContainer', () => {
 
   it('displays loading state initially', () => {
     renderWithClient(<EnergyAccountsContainer />)
-    expect(screen.getByRole('heading', { name: /my energy accounts/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Welcome back/i })).toBeInTheDocument()
     expect(screen.getByRole('main')).toBeInTheDocument()
   })
 
