@@ -24,7 +24,6 @@ A demonstration web application showcasing Next.js 15's full-stack capabilities 
   - Next.js API Routes
   - TypeScript
   - Mock API services for demonstration
-  - lowdb for simulated backend with local JSON.
 
 ## Prerequisites
 

@@ -30,7 +30,6 @@ interface Database {
   payments: Payment[];
 }
 
-// Initial data
 const initialData: Database = {
   accounts: [
     {
