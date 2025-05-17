@@ -65,7 +65,7 @@ export function MobileFilterModal({
               "sticky top-0 bg-white border-b border-blue-100 px-4 py-4 flex items-center justify-between"
             )}
           >
-            <div className={twMerge("flex items-center gap-2")}>
+            <div className={twMerge("flex items-center gap-2 max-w-3xl mx-auto w-full")}>
               <DialogTitle className={twMerge("text-xl font-semibold text-grey-900")}>
                 Filters
               </DialogTitle>
@@ -92,7 +92,7 @@ export function MobileFilterModal({
             </button>
           </div>
 
-          <div className={twMerge("p-4 space-y-6")}>
+          <div className={twMerge("p-4 space-y-6 max-w-3xl mx-auto w-full")}>
             <div className={twMerge("space-y-3")}>
               <div
                 className={twMerge(
@@ -165,17 +165,19 @@ export function MobileFilterModal({
               "sticky bottom-0 bg-white border-t border-blue-100 p-4"
             )}
           >
-            <button
-              onClick={onClose}
-              className={twMerge(
-                "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl",
-                "hover:bg-blue-600 active:bg-blue-700 transition-colors",
-                "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
-                "text-base"
-              )}
-            >
-              Apply Filters
-            </button>
+            <div className="max-w-3xl mx-auto w-full">
+              <button
+                onClick={onClose}
+                className={twMerge(
+                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl",
+                  "hover:bg-blue-600 active:bg-blue-700 transition-colors",
+                  "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
+                  "text-base"
+                )}
+              >
+                Apply Filters
+              </button>
+            </div>
           </div>
         </DialogPanel>
       </div>
