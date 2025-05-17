@@ -6,7 +6,7 @@ interface FilterBarProps {
   setFilter: Dispatch<SetStateAction<Filter>>;
 }
 
-export default function FilterBar({ filter, setFilter }: FilterBarProps) {
+export function FilterBar({ filter, setFilter }: FilterBarProps) {
   return (
     <div className="flex flex-col sm:flex-row gap-4 mb-4">
       <select

@@ -1,6 +1,6 @@
 "use client";
 
-import NavBar from "../../shared/NavBar";
+import { NavBar } from "../../shared/NavBar";
 import { PaymentsHistoryTable } from "./components/PaymentsHistoryTable";
 import { usePaymentHistory } from "./hooks/usePaymentHistory";
 

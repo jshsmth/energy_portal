@@ -1,3 +1,40 @@
+// TODO: I would refactor this to use the compound component pattern.
+// This would make the table more reusable and flexible. Example structure:
+//
+// Example usage:
+// <Table>
+//   <Table.Header>
+//     <Table.Row>
+//       <Table.HeaderCell>Date</Table.HeaderCell>
+//       <Table.HeaderCell>Account ID</Table.HeaderCell>
+//       <Table.HeaderCell>Amount</Table.HeaderCell>
+//       <Table.HeaderCell>Status</Table.HeaderCell>
+//     </Table.Row>
+//   </Table.Header>
+//   <Table.Body>
+//     {payments.map((payment) => (
+//       <Table.Row key={payment.id}>
+//         <Table.Cell>{payment.date}</Table.Cell>
+//         <Table.Cell>{payment.accountId}</Table.Cell>
+//         <Table.Cell>${payment.amount}</Table.Cell>
+//         <Table.Cell>
+//           <Table.StatusBadge status={payment.status} />
+//         </Table.Cell>
+//       </Table.Row>
+//     ))}
+//   </Table.Body>
+//   <Table.Footer>
+//     <Table.Pagination />
+//   </Table.Footer>
+// </Table>
+//
+// This pattern would allow for:
+// - Flexible header and footer customization
+// - Reusable row and cell components
+// - Built-in loading and error states
+// - Consistent styling across all table instances
+// - Easy addition of features like sorting, filtering, and pagination
+
 import { usePaymentHistory } from "../hooks/usePaymentHistory";
 
 export const PaymentsHistoryTable = () => {

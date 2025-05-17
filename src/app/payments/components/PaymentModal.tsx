@@ -1,5 +1,4 @@
-
-// TODO: If I had more time, I would refactor this to use the compound component pattern.
+// TODO: I would refactor this to use the compound component pattern.
 // This would make the modal more reusable and flexible. Example structure:
 //
 // Example usage:
@@ -30,7 +29,6 @@ import { usePaymentModal } from "../hooks/usePaymentModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { Account } from "../../accounts/types/accounts";
 
-
 /* */
 
 interface PaymentModalProps {
@@ -43,7 +41,7 @@ interface PaymentModalProps {
   ) => Promise<void>;
 }
 
-export default function PaymentModal({
+export function PaymentModal({
   open,
   onClose,
   account,

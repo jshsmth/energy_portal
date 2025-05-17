@@ -1,12 +1,12 @@
 "use client";
 
-import AccountCard from "./AccountCard";
-import FilterBar from "./FilterBar";
-import NavBar from "../../../shared/NavBar";
-import PaymentModal from "../../payments/components/PaymentModal";
+import { AccountCard } from "./AccountCard";
+import { FilterBar } from "./FilterBar";
+import { NavBar } from "../../../shared/NavBar";
+import { PaymentModal } from "../../payments/components/PaymentModal";
 import { useAccountsPage } from "../hooks/useAccountsPage";
 
-export default function AccountsPage() {
+export function AccountsPage() {
   const {
     accounts,
     filter,
