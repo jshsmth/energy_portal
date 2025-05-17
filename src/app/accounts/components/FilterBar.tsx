@@ -20,7 +20,7 @@ export function FilterBar({ filter, setFilter }: FilterBarProps) {
           <h2 className={twMerge("text-sm sm:text-base md:text-lg font-bold text-grey-900")}>Filters</h2>
         </div>
         <button
-          className={twMerge("px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-blue-200 text-blue-600 text-xs sm:text-sm font-medium hover:bg-blue-50 transition")}
+          className={twMerge("px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-blue-200 text-blue-600 text-xs sm:text-sm font-medium hover:bg-blue-50 transition cursor-pointer")}
           onClick={handleReset}
         >
           Reset

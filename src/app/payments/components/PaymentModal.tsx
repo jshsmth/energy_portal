@@ -80,7 +80,7 @@ export function PaymentModal({
             </DialogTitle>
             <button
               className={twMerge(
-                "p-1.5 rounded-full hover:bg-grey-100 transition-colors",
+                "p-1.5 rounded-full hover:bg-grey-100 transition-colors cursor-pointer",
                 "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
               )}
               onClick={handleClose}
@@ -113,7 +113,7 @@ export function PaymentModal({
               </div>
               <button
                 className={twMerge(
-                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl",
+                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl cursor-pointer",
                   "hover:bg-blue-600 active:bg-blue-700 transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
                   "text-base"
@@ -228,7 +228,7 @@ export function PaymentModal({
               <button
                 type="submit"
                 className={twMerge(
-                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl",
+                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl cursor-pointer",
                   "hover:bg-blue-600 active:bg-blue-700 transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
                   "text-base",

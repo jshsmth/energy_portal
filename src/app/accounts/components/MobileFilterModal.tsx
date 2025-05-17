@@ -74,7 +74,7 @@ export function MobileFilterModal({
                   onClick={handleReset}
                   className={twMerge(
                     "px-2.5 py-1 rounded-full border border-blue-200 text-blue-600",
-                    "text-xs font-medium hover:bg-blue-50 transition-colors"
+                    "text-xs font-medium hover:bg-blue-50 transition-colors cursor-pointer"
                   )}
                 >
                   Reset
@@ -84,7 +84,7 @@ export function MobileFilterModal({
             <button
               onClick={onClose}
               className={twMerge(
-                "p-1.5 rounded-full hover:bg-grey-100 transition-colors",
+                "p-1.5 rounded-full hover:bg-grey-100 transition-colors cursor-pointer",
                 "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
               )}
             >
@@ -117,7 +117,7 @@ export function MobileFilterModal({
                       }))
                     }
                     className={twMerge(
-                      "py-2.5 px-3 rounded-xl text-sm font-medium transition-colors",
+                      "py-2.5 px-3 rounded-xl text-sm font-medium transition-colors cursor-pointer",
                       "border border-blue-100",
                       filter.energyType === type.value
                         ? "bg-blue-50 text-blue-600 border-blue-200"
@@ -169,7 +169,7 @@ export function MobileFilterModal({
               <button
                 onClick={onClose}
                 className={twMerge(
-                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl",
+                  "w-full py-3.5 px-4 bg-blue-500 text-white font-semibold rounded-xl cursor-pointer",
                   "hover:bg-blue-600 active:bg-blue-700 transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
                   "text-base"

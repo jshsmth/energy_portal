@@ -20,7 +20,7 @@ export function MobileFilterButton({
         onClick={onClick}
         className={twMerge(
           "flex items-center gap-2 px-4 py-2.5 bg-white rounded-full shadow-lg border border-blue-100",
-          "hover:bg-blue-50 active:bg-blue-100 transition-colors duration-200"
+          "hover:bg-blue-50 active:bg-blue-100 transition-colors duration-200 cursor-pointer"
         )}
       >
         <FunnelIcon className={twMerge("h-5 w-5 text-blue-500")} />

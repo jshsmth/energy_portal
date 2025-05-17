@@ -115,7 +115,7 @@ export function AccountCard({ account, onMakePayment }: AccountCardProps) {
         <button
           type="button"
           className={twMerge(
-            "mt-3 sm:mt-4 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow transition-all text-xs sm:text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+            "mt-3 sm:mt-4 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow transition-all text-xs sm:text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 cursor-pointer"
           )}
           onClick={() => onMakePayment?.(account)}
         >
