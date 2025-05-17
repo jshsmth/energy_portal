@@ -26,7 +26,7 @@ import {
   DialogBackdrop,
 } from "@headlessui/react";
 import { usePaymentModal } from "../hooks/usePaymentModal";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, CreditCardIcon, CalendarIcon, KeyIcon } from "@heroicons/react/24/outline";
 import type { Account } from "../../accounts/types/accounts";
 
 /* */
@@ -66,9 +66,16 @@ export function PaymentModal({
 
   return (
     <Dialog open={open} onClose={handleClose} className="relative z-50">
-      <DialogBackdrop className="fixed inset-0 bg-black/30" />
+      <DialogBackdrop className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-        <DialogPanel className="max-w-md space-y-4 border bg-white p-6">
+        <DialogPanel className="max-w-md space-y-4 border bg-white p-8 rounded-2xl shadow-xl relative">
+          <button
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+            onClick={handleClose}
+            aria-label="Close"
+          >
+            <XMarkIcon className="h-6 w-6" />
+          </button>
           {success ? (
             <>
               <DialogTitle className="text-lg font-medium text-gray-900">
@@ -101,7 +108,7 @@ export function PaymentModal({
                   <input
                     type="number"
                     placeholder="Payment Amount"
-                    className="w-full rounded border p-2 pl-7"
+                    className="w-full rounded-lg border p-2 pl-7 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     min="0.01"
@@ -109,37 +116,52 @@ export function PaymentModal({
                     required
                   />
                 </div>
-                <input
-                  type="text"
-                  placeholder="Card Number"
-                  className="w-full rounded border p-2"
-                  value={card.number}
-                  onChange={(e) => setCard({ ...card, number: e.target.value })}
-                  required
-                />
-                <div className="flex gap-2">
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <CreditCardIcon className="h-5 w-5" />
+                  </span>
                   <input
                     type="text"
-                    placeholder="MM/YY"
-                    className="w-1/2 rounded border p-2"
-                    value={card.expiry}
-                    onChange={(e) =>
-                      setCard({ ...card, expiry: e.target.value })
-                    }
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="CVC"
-                    className="w-1/2 rounded border p-2"
-                    value={card.cvc}
-                    onChange={(e) => setCard({ ...card, cvc: e.target.value })}
+                    placeholder="Card Number"
+                    className="w-full rounded-lg border p-2 pl-10 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                    value={card.number}
+                    onChange={(e) => setCard({ ...card, number: e.target.value })}
                     required
                   />
                 </div>
+                <div className="flex gap-2">
+                  <div className="relative w-1/2">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                      <CalendarIcon className="h-5 w-5" />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="MM/YY"
+                      className="w-full rounded-lg border p-2 pl-10 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                      value={card.expiry}
+                      onChange={(e) =>
+                        setCard({ ...card, expiry: e.target.value })
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="relative w-1/2">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                      <KeyIcon className="h-5 w-5" />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="CVC"
+                      className="w-full rounded-lg border p-2 pl-10 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                      value={card.cvc}
+                      onChange={(e) => setCard({ ...card, cvc: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
                 <button
                   type="submit"
-                  className="w-full rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+                  className="w-full rounded-lg bg-blue-500 px-4 py-2 text-base font-semibold text-white shadow hover:bg-blue-600 transition-colors disabled:opacity-50"
                   disabled={loading}
                 >
                   {loading ? "Paying..." : "Pay"}

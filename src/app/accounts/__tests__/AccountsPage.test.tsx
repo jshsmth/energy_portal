@@ -53,9 +53,9 @@ describe('AccountsPage', () => {
 
     // Verify accounts are displayed
     expect(screen.getByText('123 Main St')).toBeInTheDocument()
-    expect(screen.getByText('Energy Type: ELECTRICITY')).toBeInTheDocument()
+    expect(screen.getByText((_, node) => !!node && node.textContent === 'Electricity')).toBeInTheDocument()
     expect(screen.getByText('456 Oak Ave')).toBeInTheDocument()
-    expect(screen.getByText('Energy Type: GAS')).toBeInTheDocument()
+    expect(screen.getByText((_, node) => !!node && node.textContent === 'Gas')).toBeInTheDocument()
   })
 
   it('displays error message when fetch fails', async () => {

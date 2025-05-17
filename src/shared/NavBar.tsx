@@ -1,17 +1,25 @@
 import Link from "next/link";
+import { BoltIcon } from "@heroicons/react/24/outline";
 
 export function NavBar() {
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-blue-50/60 border-b border-blue-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-900">Smithy Energy</h1>
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-gray-900 hover:bg-yellow-50 hover:shadow px-3 py-1 rounded-lg transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              aria-label="Smithy Energy Home"
+            >
+              <BoltIcon className="h-8 w-8 text-yellow-400 drop-shadow-sm" aria-hidden="true" />
+              <span>Smithy Energy</span>
+            </Link>
           </div>
           <div className="flex items-center">
             <Link
               href="/payments"
-              className="text-gray-600 hover:text-gray-900"
+              className="ml-2 text-slate-700 font-semibold px-3 py-1 rounded hover:underline hover:bg-slate-100 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-slate-200"
             >
               Payment History
             </Link>
