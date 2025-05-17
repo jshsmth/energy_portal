@@ -1,16 +1,16 @@
-# Energy Portal
+# Energy Portal Demo
 
-A modern web application for managing energy accounts and processing payments, built with Next.js, TypeScript, and Tailwind CSS.
+A demonstration web application showcasing Next.js 15's full-stack capabilities through an energy account management system. This project serves as a practical example of building modern web applications with TypeScript and Tailwind CSS.
 
-## Features
+## Demo Features
 
-- 📊 View and manage energy accounts
-- 💳 Process credit card payments
-- 🔍 Filter accounts by energy type
-- 🔎 Search accounts by address
-- 📜 View payment history
+- 📊 Energy account management interface
+- 💳 Payment processing simulation
+- 🔍 Account filtering and search functionality
+- 📜 Payment history tracking
+- 🎯 Full-stack implementation with Next.js 15
 
-## Tech Stack
+## Tech Stack Showcase
 
 - **Frontend:**
 
@@ -23,7 +23,7 @@ A modern web application for managing energy accounts and processing payments, b
 - **Backend:**
   - Next.js API Routes
   - TypeScript
-  - Mock API Services
+  - Mock API services for demonstration
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ A modern web application for managing energy accounts and processing payments, b
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to explore the demo.
 
 ## Project Structure
 
@@ -82,8 +82,9 @@ src/
 - ESLint for code linting
 - Prettier for code formatting
 
-### Component Structure
+### Component Architecture
 
 - Functional components with hooks
 - Custom hooks for business logic
 - Shared components for reusability
+- ESM
