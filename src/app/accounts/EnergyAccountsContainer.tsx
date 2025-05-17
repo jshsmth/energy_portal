@@ -46,15 +46,17 @@ export function EnergyAccountsContainer() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AccountHeader />
-        <div className="flex flex-col md:flex-row gap-8 items-start">
+    <div className="min-h-screen main-bg-gradient font-sans">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-20">
+        <div className="flex flex-col md:flex-row gap-12 items-start">
           <aside className="w-full md:w-72 md:sticky md:top-24 flex-shrink-0">
             <FilterBar filter={filter} setFilter={setFilter} />
           </aside>
           <section className="flex-1 w-full">
-            <div className="flex flex-col gap-8">
+            <div className="mb-8">
+              <AccountHeader />
+            </div>
+            <div className="flex flex-col gap-6">
               {accounts.map((account) => (
                 <AccountCard
                   key={account.id}
