@@ -41,14 +41,15 @@ describe('AccountsPage', () => {
 
   it('displays loading state initially', () => {
     render(<AccountsPage />)
-    expect(screen.getByText('Loading accounts...')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /my energy accounts/i })).toBeInTheDocument()
+    expect(screen.getByRole('main')).toBeInTheDocument()
   })
 
   it('fetches and displays energy accounts', async () => {
     render(<AccountsPage />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Loading accounts...')).not.toBeInTheDocument()
+      expect(screen.getByText('123 Main St')).toBeInTheDocument()
     })
 
     // Verify accounts are displayed
@@ -72,7 +73,7 @@ describe('AccountsPage', () => {
     render(<AccountsPage />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Loading accounts...')).not.toBeInTheDocument()
+      expect(screen.getByText('123 Main St')).toBeInTheDocument()
     })
 
     const searchInput = screen.getByPlaceholderText('Search by address')
@@ -87,7 +88,7 @@ describe('AccountsPage', () => {
     render(<AccountsPage />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Loading accounts...')).not.toBeInTheDocument()
+      expect(screen.getByText('123 Main St')).toBeInTheDocument()
     })
 
     const energyTypeSelect = screen.getByLabelText('Energy Type')
