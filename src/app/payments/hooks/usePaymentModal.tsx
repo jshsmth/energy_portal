@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Account } from "../../accounts/types/accounts";
+import { usePaymentMutation } from "./usePaymentMutation";
 
 interface CardDetails {
   number: string;
@@ -8,10 +9,6 @@ interface CardDetails {
 }
 
 interface UsePaymentModalProps {
-  onPay: (
-    card: { number: string; expiry: string; cvc: string },
-    amount: number
-  ) => Promise<void>;
   onClose: () => void;
   account: Account | null;
 }
@@ -31,7 +28,6 @@ interface UsePaymentModalReturn {
 }
 
 export const usePaymentModal = ({
-  onPay,
   onClose,
   account,
 }: UsePaymentModalProps): UsePaymentModalReturn => {
@@ -41,27 +37,35 @@ export const usePaymentModal = ({
     cvc: "",
   });
   const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handlePay = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const paymentMutation = usePaymentMutation();
+
+  const handlePay = async (event: React.FormEvent) => {
+    event.preventDefault();
     setError(null);
+    
+    if (!account) {
+      setError("No account selected");
+      return;
+    }
+
     try {
       const paymentAmount = parseFloat(amount);
       if (isNaN(paymentAmount) || paymentAmount <= 0) {
         throw new Error("Please enter a valid amount");
       }
-      if (
-        account &&
-        account.balance < 0 &&
-        paymentAmount > Math.abs(account.balance)
-      ) {
+      if (account.balance < 0 && paymentAmount > Math.abs(account.balance)) {
         throw new Error("Payment amount cannot exceed outstanding balance");
       }
-      await onPay(card, paymentAmount);
+
+      await paymentMutation.mutateAsync({
+        card,
+        amount: paymentAmount,
+        account,
+      });
+      
       setSuccess(true);
     } catch (error) {
       setError(
@@ -69,8 +73,6 @@ export const usePaymentModal = ({
           ? error.message
           : "An error occurred during payment"
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -100,7 +102,7 @@ export const usePaymentModal = ({
   return {
     card,
     amount,
-    loading,
+    loading: paymentMutation.isPending,
     success,
     error,
     handlePay,

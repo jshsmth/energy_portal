@@ -17,7 +17,6 @@ export function EnergyAccountsContainer() {
     loading,
     error,
     handleMakePayment,
-    handlePay,
     closeModal,
   } = useAccountsPage();
 
@@ -71,7 +70,6 @@ export function EnergyAccountsContainer() {
           open={modalOpen}
           onClose={closeModal}
           account={selectedAccount}
-          onPay={handlePay}
         />
       </main>
     </div>

@@ -37,17 +37,12 @@ interface PaymentModalProps {
   open: boolean;
   onClose: () => void;
   account: Account | null;
-  onPay: (
-    card: { number: string; expiry: string; cvc: string },
-    amount: number
-  ) => Promise<void>;
 }
 
 export function PaymentModal({
   open,
   onClose,
   account,
-  onPay,
 }: PaymentModalProps) {
   const {
     card,
@@ -61,7 +56,6 @@ export function PaymentModal({
     setAmount,
     getBalanceMessage,
   } = usePaymentModal({
-    onPay,
     onClose,
     account,
   });
