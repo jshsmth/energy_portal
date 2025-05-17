@@ -22,9 +22,9 @@ export function AccountsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 font-sans">
+      <div className="min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+          <h1 className="text-3xl font-bold text-grey-900 mb-8 tracking-tight">
             My Energy Accounts
           </h1>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
@@ -37,9 +37,9 @@ export function AccountsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 font-sans">
+      <div className="min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+          <h1 className="text-3xl font-bold text-grey-900 mb-8 tracking-tight">
             My Energy Accounts
           </h1>
           <AccountSkeleton />
@@ -49,9 +49,9 @@ export function AccountsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+        <h1 className="text-3xl font-bold text-grey-900 mb-8 tracking-tight">
           My Energy Accounts
         </h1>
         <div className="flex flex-col md:flex-row gap-8 items-start">
