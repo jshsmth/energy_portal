@@ -1,4 +1,4 @@
-import { BoltIcon } from "@heroicons/react/24/solid";
+import { BoltIcon, DocumentTextIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -53,9 +53,10 @@ export function AccountHeader() {
         <Link href="/payments" className={twMerge("w-full md:w-auto")}>
           <button
             className={twMerge(
-              "w-full md:w-auto bg-blue-600 text-white px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-3 rounded-md sm:rounded-lg font-semibold shadow hover:bg-blue-700 transition text-xs sm:text-sm md:text-base lg:text-lg"
+              "w-full md:w-auto bg-blue-600 text-white px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-3 rounded-md sm:rounded-lg font-semibold shadow hover:bg-blue-700 transition text-xs sm:text-sm md:text-base lg:text-lg flex items-center justify-center gap-2"
             )}
           >
+            <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             View Payment History
           </button>
         </Link>
