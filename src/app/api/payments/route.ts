@@ -1,17 +1,5 @@
-import { NextResponse } from 'next/server';
-import { MOCK_ENERGY_ACCOUNTS_API } from '../mocks/energyAccountsAPIMock';
-import { dueCharges } from '../mocks/dueChargesMock';
-
-interface Payment {
-  id: number;
-  accountId: string;
-  amount: number;
-  date: string;
-  status: 'success' | 'failed';
-  chargeIds: string[];
-}
-
-const paymentHistory: Payment[] = [];
+import { NextResponse } from "next/server";
+import db from "../db/database";
 
 export async function POST(request: Request) {
   try {
@@ -20,73 +8,76 @@ export async function POST(request: Request) {
 
     if (!accountId || !amount || !cardDetails) {
       return NextResponse.json(
-        { error: 'Missing required fields: accountId, amount, or cardDetails' },
+        { error: "Missing required fields: accountId, amount, or cardDetails" },
         { status: 400 }
       );
     }
 
-    if (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvc) {
+    const { number, expiry, cvc } = cardDetails;
+    if (!number || !expiry || !cvc) {
       return NextResponse.json(
-        { error: 'Invalid card details' },
+        { error: "Invalid card details" },
         { status: 400 }
       );
     }
 
     if (amount <= 0) {
       return NextResponse.json(
-        { error: 'Payment amount must be greater than 0' },
+        { error: "Payment amount must be greater than 0" },
         { status: 400 }
       );
     }
 
-    const accounts = await MOCK_ENERGY_ACCOUNTS_API();
-    const account = accounts.find(acc => acc.id === accountId);
-    
+    await db.read();
+    const account = db.data?.accounts.find(acc => acc.id === accountId);
     if (!account) {
-      return NextResponse.json(
-        { error: 'Account not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Account not found" }, { status: 404 });
     }
 
-    const accountCharges = dueCharges.filter(charge => charge.accountId === accountId);
-    const totalDue = accountCharges.reduce((sum, charge) => sum + charge.amount, 0);
-    
-    if (amount < totalDue) {
-      return NextResponse.json(
-        { 
-          error: 'Payment amount is less than total due amount',
-          totalDue,
-          currentAmount: amount
-        },
-        { status: 400 }
-      );
-    }
-
+    // Simulate delay (e.g., for card processing)
     await new Promise((res) => setTimeout(res, 1000));
 
-    const payment: Payment = {
-      id: paymentHistory.length + 1,
+    const accountCharges = (db.data?.dueCharges || []).filter(
+      (charge) => charge.accountId === accountId
+    );
+
+    const newPayment = {
+      id: (db.data?.payments.length || 0) + 1,
       accountId,
       amount,
-      date: new Date().toISOString().split('T')[0],
-      status: 'success',
-      chargeIds: accountCharges.map(charge => charge.id)
+      date: new Date().toISOString().split("T")[0],
+      status: "success" as const,
+      chargeIds: accountCharges.map((c) => c.id),
     };
 
-    paymentHistory.push(payment);
+    // Add payment to database
+    if (!db.data) {
+      throw new Error("Database not initialized");
+    }
+    db.data.payments.push(newPayment);
+
+    // Add credit charge
+    const creditCharge = {
+      id: `CREDIT-${String(newPayment.id).padStart(4, '0')}`,
+      accountId: newPayment.accountId,
+      date: newPayment.date,
+      amount: -newPayment.amount
+    };
+    db.data.dueCharges.push(creditCharge);
+
+    await db.write();
 
     return NextResponse.json({
-      ...payment,
+      ...newPayment,
       accountType: account.type,
-      address: account.address
+      address: account.address,
     });
   } catch (error) {
-    console.error('Payment processing error:', error);
+    console.error("Payment processing error:", error);
     return NextResponse.json(
-      { 
-        error: 'Payment processing failed',
-        details: error instanceof Error ? error.message : 'Unknown error'
+      {
+        error: "Payment processing failed",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -95,11 +86,12 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    return NextResponse.json(paymentHistory);
+    await db.read();
+    return NextResponse.json(db.data?.payments || []);
   } catch {
     return NextResponse.json(
-      { error: 'Failed to fetch payment history' },
+      { error: "Failed to fetch payment history" },
       { status: 500 }
     );
   }
-} 
+}

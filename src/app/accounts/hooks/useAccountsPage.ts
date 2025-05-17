@@ -41,6 +41,7 @@ export const useAccountsPage = () => {
     onSuccess: () => {
       setPaymentSuccess(true);
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: ['payments'] });
     },
   });
 

@@ -25,8 +25,8 @@ export function AccountCard({ account, onMakePayment }: AccountCardProps) {
         "bg-white rounded-xl shadow-sm p-6 w-full transition-transform duration-150 hover:shadow-lg hover:-translate-y-1",
         "border-l-4",
         clsx({
-          "border-green-400": account.balance > 0,
-          "border-red-400": account.balance < 0,
+          "border-red-400": account.balance > 0,
+          "border-green-400": account.balance < 0,
           "border-grey-300": account.balance === 0,
         })
       )}
@@ -60,8 +60,8 @@ export function AccountCard({ account, onMakePayment }: AccountCardProps) {
         className={twMerge(
           "font-bold text-lg mt-2",
           clsx({
-            "text-green-500": account.balance > 0,
-            "text-red-500": account.balance < 0,
+            "text-red-500": account.balance > 0,
+            "text-green-500": account.balance < 0,
             "text-grey-500": account.balance === 0,
           })
         )}
