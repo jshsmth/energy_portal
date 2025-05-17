@@ -6,7 +6,7 @@ export function AccountHeader() {
   return (
     <div
       className={twMerge(
-        "rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-6 lg:gap-8 items-start w-full"
+        "mx-2 sm:mx-0 w-auto sm:w-full mt-3 sm:mt-0 rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-2 sm:gap-4 md:gap-6 lg:gap-8 items-start"
       )}
       style={{ backgroundColor: "rgb(9, 30, 36)" }}
     >
