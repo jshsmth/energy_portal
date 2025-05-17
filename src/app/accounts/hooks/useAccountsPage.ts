@@ -1,50 +1,31 @@
 import * as React from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Account, Filter, CardDetails } from "../types/accounts";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants/accounts";
 
 export const useAccountsPage = () => {
-  const [accounts, setAccounts] = React.useState<Account[]>([]);
+  const queryClient = useQueryClient();
   const [filter, setFilter] = React.useState<Filter>({
     energyType: "",
     search: "",
   });
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [selectedAccount, setSelectedAccount] = React.useState<Account | null>(
-    null
-  );
+  const [selectedAccount, setSelectedAccount] = React.useState<Account | null>(null);
   const [paymentSuccess, setPaymentSuccess] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    fetchAccounts();
-  }, []);
-
-  const fetchAccounts = async () => {
-    try {
+  const { data: accounts = [], isLoading, error } = useQuery({
+    queryKey: ['accounts'],
+    queryFn: async () => {
       const response = await fetch(API_ENDPOINTS.ACCOUNTS);
       if (!response.ok) throw new Error(ERROR_MESSAGES.FETCH_ACCOUNTS);
-      const data = await response.json();
-      setAccounts(data);
-    } catch {
-      setError(ERROR_MESSAGES.FETCH_ACCOUNTS);
-    } finally {
-      setLoading(false);
-    }
-  };
+      return response.json();
+    },
+  });
 
-  const filteredAccounts = filterAccounts(accounts, filter);
-
-  const handleMakePayment = (account: Account) => {
-    setSelectedAccount(account);
-    setModalOpen(true);
-    setPaymentSuccess(false);
-  };
-
-  const handlePay = async (card: CardDetails, amount: number) => {
-    try {
-      if (!selectedAccount) return;
-
+  const paymentMutation = useMutation({
+    mutationFn: async ({ card, amount }: { card: CardDetails; amount: number }) => {
+      if (!selectedAccount) throw new Error('No account selected');
+      
       const response = await fetch(API_ENDPOINTS.PAYMENTS, {
         method: "POST",
         headers: {
@@ -61,19 +42,24 @@ export const useAccountsPage = () => {
         throw new Error(ERROR_MESSAGES.PAYMENT_FAILED);
       }
 
-      await response.json();
+      return response.json();
+    },
+    onSuccess: () => {
       setPaymentSuccess(true);
+      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+    },
+  });
 
-      setAccounts(
-        accounts.map((account) =>
-          account.id === selectedAccount.id
-            ? { ...account, balance: account.balance + amount }
-            : account
-        )
-      );
-    } catch {
-      setError(ERROR_MESSAGES.PAYMENT_FAILED);
-    }
+  const filteredAccounts = filterAccounts(accounts, filter);
+
+  const handleMakePayment = (account: Account) => {
+    setSelectedAccount(account);
+    setModalOpen(true);
+    setPaymentSuccess(false);
+  };
+
+  const handlePay = (card: CardDetails, amount: number) => {
+    paymentMutation.mutate({ card, amount });
   };
 
   const closeModal = () => {
@@ -88,8 +74,8 @@ export const useAccountsPage = () => {
     modalOpen,
     selectedAccount,
     paymentSuccess,
-    loading,
-    error,
+    loading: isLoading,
+    error: error ? ERROR_MESSAGES.FETCH_ACCOUNTS : null,
     handleMakePayment,
     handlePay,
     closeModal,

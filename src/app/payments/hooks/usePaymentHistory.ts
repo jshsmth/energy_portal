@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-type Payment = {
+export type Payment = {
   id: number;
   accountId: number;
   amount: number;
@@ -9,31 +9,19 @@ type Payment = {
 };
 
 export const usePaymentHistory = () => {
-  const [payments, setPayments] = useState<Payment[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchPayments();
-  }, []);
-
-  const fetchPayments = async () => {
-    try {
+  const { data: payments = [], isLoading, error, refetch } = useQuery<Payment[]>({
+    queryKey: ['payments'],
+    queryFn: async () => {
       const response = await fetch("/api/payments");
       if (!response.ok) throw new Error("Failed to fetch payments");
-      const data = await response.json();
-      setPayments(data);
-    } catch {
-      setError("Failed to load payment history. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
+      return response.json();
+    },
+  });
 
   return {
     payments,
-    loading,
-    error,
-    refreshPayments: fetchPayments,
+    loading: isLoading,
+    error: error ? "Failed to load payment history. Please try again later." : null,
+    refreshPayments: refetch,
   };
 };

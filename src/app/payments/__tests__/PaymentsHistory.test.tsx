@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { PaymentsHistory } from '../components/PaymentsHistory'
+import { renderWithClient } from '../../test-utils'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -32,7 +33,7 @@ describe('PaymentsHistory', () => {
   })
 
   it('displays loading state initially', () => {
-    render(<PaymentsHistory />)
+    renderWithClient(<PaymentsHistory />)
     
     expect(screen.getByRole('heading', { name: /payment history/i })).toBeInTheDocument()
     
@@ -43,7 +44,7 @@ describe('PaymentsHistory', () => {
 
   it('displays error message when fetch fails', async () => {
     mockFetch.mockRejectedValueOnce(new Error('Failed to fetch'))
-    render(<PaymentsHistory />)
+    renderWithClient(<PaymentsHistory />)
 
     await waitFor(() => {
       expect(screen.getByText('Failed to load payment history. Please try again later.')).toBeInTheDocument()
@@ -51,7 +52,7 @@ describe('PaymentsHistory', () => {
   })
 
   it('displays payment data correctly when loaded', async () => {
-    render(<PaymentsHistory />)
+    renderWithClient(<PaymentsHistory />)
 
     // Wait for the data to load
     await waitFor(() => {
