@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { MOCK_ENERGY_ACCOUNTS_API } from '../mocks/energyAccountsAPIMock';
-import { MOCK_DUE_CHARGES_API } from '../mocks/dueChargesAPIMock';
+import { dueCharges } from '../mocks/dueChargesMock';
 
 interface Payment {
   id: number;
@@ -49,9 +49,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const dueCharges = await MOCK_DUE_CHARGES_API();
     const accountCharges = dueCharges.filter(charge => charge.accountId === accountId);
-    
     const totalDue = accountCharges.reduce((sum, charge) => sum + charge.amount, 0);
     
     if (amount < totalDue) {

@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { AccountsPage } from '../EnergyAccountsContainer'
+import { EnergyAccountsContainer } from '../EnergyAccountsContainer'
 import { ERROR_MESSAGES } from '@/app/constants'
 import { renderWithClient } from '../../test-utils'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
 
-describe('AccountsPage', () => {
+describe('EnergyAccountsContainer', () => {
   const mockAccounts = [
     {
       id: '1',
@@ -41,13 +41,13 @@ describe('AccountsPage', () => {
   })
 
   it('displays loading state initially', () => {
-    renderWithClient(<AccountsPage />)
+    renderWithClient(<EnergyAccountsContainer />)
     expect(screen.getByRole('heading', { name: /my energy accounts/i })).toBeInTheDocument()
     expect(screen.getByRole('main')).toBeInTheDocument()
   })
 
   it('fetches and displays energy accounts', async () => {
-    renderWithClient(<AccountsPage />)
+    renderWithClient(<EnergyAccountsContainer />)
 
     await waitFor(() => {
       expect(screen.getByText('123 Main St')).toBeInTheDocument()
@@ -62,7 +62,7 @@ describe('AccountsPage', () => {
 
   it('displays error message when fetch fails', async () => {
     mockFetch.mockRejectedValueOnce(new Error('Failed to fetch'))
-    renderWithClient(<AccountsPage />)
+    renderWithClient(<EnergyAccountsContainer />)
 
     await waitFor(() => {
       expect(screen.getByText(ERROR_MESSAGES.FETCH_ACCOUNTS)).toBeInTheDocument()
@@ -71,7 +71,7 @@ describe('AccountsPage', () => {
 
   it('filters accounts based on search input', async () => {
     const user = userEvent.setup()
-    renderWithClient(<AccountsPage />)
+    renderWithClient(<EnergyAccountsContainer />)
 
     await waitFor(() => {
       expect(screen.getByText('123 Main St')).toBeInTheDocument()
@@ -86,7 +86,7 @@ describe('AccountsPage', () => {
 
   it('filters accounts based on energy type', async () => {
     const user = userEvent.setup()
-    renderWithClient(<AccountsPage />)
+    renderWithClient(<EnergyAccountsContainer />)
 
     await waitFor(() => {
       expect(screen.getByText('123 Main St')).toBeInTheDocument()
