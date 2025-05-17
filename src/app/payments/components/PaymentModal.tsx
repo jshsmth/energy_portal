@@ -47,7 +47,7 @@ export function PaymentModal({
   const {
     card,
     amount,
-    loading,
+    isLoading,
     success,
     error,
     handlePay,
@@ -164,12 +164,12 @@ export function PaymentModal({
                   className={twMerge(
                     "w-full rounded-lg bg-blue-500 px-4 py-2 text-base font-semibold text-white shadow hover:bg-blue-600 transition-colors cursor-pointer",
                     clsx({
-                      "opacity-50": loading
+                      "opacity-50 cursor-not-allowed": isLoading
                     })
                   )}
-                  disabled={loading}
+                  disabled={isLoading}
                 >
-                  {loading ? "Paying..." : "Pay"}
+                  {isLoading ? "Paying..." : "Pay"}
                 </button>
               </div>
               {error && (

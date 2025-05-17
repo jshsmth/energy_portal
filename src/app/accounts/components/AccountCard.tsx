@@ -8,15 +8,52 @@ interface AccountCardProps {
   onMakePayment?: (account: Account) => void;
 }
 
+interface EnergyBadgeConfig {
+  icon: typeof LightBulbIcon;
+  label: string;
+  bgColor: string;
+  textColor: string;
+  borderColor: string;
+  iconColor: string;
+}
+
+const getEnergyBadgeConfig = (energyType: Account['energyType']): EnergyBadgeConfig => {
+  switch (energyType) {
+    case 'ELECTRICITY':
+      return {
+        icon: LightBulbIcon,
+        label: 'Electricity',
+        bgColor: 'bg-blue-50',
+        textColor: 'text-blue-600',
+        borderColor: 'border-blue-100',
+        iconColor: 'text-blue-400'
+      };
+    case 'GAS':
+      return {
+        icon: FireIcon,
+        label: 'Gas',
+        bgColor: 'bg-orange-50',
+        textColor: 'text-orange-700',
+        borderColor: 'border-orange-100',
+        iconColor: 'text-orange-400'
+      };
+    default:
+      throw new Error(`Unsupported energy type: ${energyType}`);
+  }
+};
+
 export function AccountCard({ account, onMakePayment }: AccountCardProps) {
-  const isElectricity = account.energyType === "ELECTRICITY";
-  const energyBadge = isElectricity ? (
-    <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full shadow-sm border border-blue-100">
-      <LightBulbIcon className="h-4 w-4 text-blue-400" /> Electricity
-    </span>
-  ) : (
-    <span className="inline-flex items-center gap-1 bg-orange-50 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full shadow-sm border border-orange-100">
-      <FireIcon className="h-4 w-4 text-orange-400" /> Gas
+  const badgeConfig = getEnergyBadgeConfig(account.energyType);
+  const Icon = badgeConfig.icon;
+  
+  const energyBadge = (
+    <span className={twMerge(
+      "inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full shadow-sm border",
+      badgeConfig.bgColor,
+      badgeConfig.textColor,
+      badgeConfig.borderColor
+    )}>
+      <Icon className={twMerge("h-4 w-4", badgeConfig.iconColor)} /> {badgeConfig.label}
     </span>
   );
 
@@ -31,6 +68,8 @@ export function AccountCard({ account, onMakePayment }: AccountCardProps) {
     "- $": account.balance < 0,
     "$": account.balance >= 0
   });
+
+  const isElectricity = account.energyType === "ELECTRICITY";
 
   return (
     <div

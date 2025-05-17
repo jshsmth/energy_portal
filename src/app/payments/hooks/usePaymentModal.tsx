@@ -16,7 +16,7 @@ interface UsePaymentModalProps {
 interface UsePaymentModalReturn {
   card: CardDetails;
   amount: string;
-  loading: boolean;
+  isLoading: boolean;
   success: boolean;
   error: string | null;
   handlePay: (e: React.FormEvent) => Promise<void>;
@@ -102,7 +102,7 @@ export const usePaymentModal = ({
   return {
     card,
     amount,
-    loading: paymentMutation.isPending,
+    isLoading: paymentMutation.isPending,
     success,
     error,
     handlePay,
