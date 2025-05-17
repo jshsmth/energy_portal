@@ -1,8 +1,8 @@
-import { PaymentsHistoryTable } from "./PaymentsHistoryTable";
-import { PaymentsSkeleton } from "./PaymentsSkeleton";
-import { usePaymentHistory } from "../hooks/usePaymentHistory";
+import { PaymentsHistoryTable } from "./components/PaymentsHistoryTable";
+import { PaymentsSkeleton } from "./components/PaymentsSkeleton";
+import { usePaymentHistory } from "./hooks/usePaymentHistory";
 
-export const PaymentsHistory = () => {
+export const PaymentsHistoryContainer = () => {
   const { loading, error } = usePaymentHistory();
 
   if (error) {

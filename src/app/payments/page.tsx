@@ -1,7 +1,7 @@
 "use client";
 
-import { PaymentsHistory } from "./components/PaymentsHistory";
+import { PaymentsHistoryContainer } from "./PaymentsHistoryContainer";
 
 export default function PaymentsPage() {
-  return <PaymentsHistory />;
+  return <PaymentsHistoryContainer />;
 }

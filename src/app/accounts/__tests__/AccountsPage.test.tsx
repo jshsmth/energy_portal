@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { AccountsPage } from '../components/AccountsPage'
-import { ERROR_MESSAGES } from '../constants/accounts'
+import { AccountsPage } from '../EnergyAccountsContainer'
+import { ERROR_MESSAGES } from '@/app/constants'
 import { renderWithClient } from '../../test-utils'
 
 const mockFetch = vi.fn()

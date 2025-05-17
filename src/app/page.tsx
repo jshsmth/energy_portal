@@ -1,5 +1,5 @@
-import { AccountsPage } from "./accounts/components/AccountsPage";
+import { EnergyAccountsContainer } from "./accounts/EnergyAccountsContainer";
 
 export default function Home() {
-  return <AccountsPage />;
+  return <EnergyAccountsContainer />;
 }

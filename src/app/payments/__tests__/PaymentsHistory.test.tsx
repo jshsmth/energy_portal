@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
-import { PaymentsHistory } from '../components/PaymentsHistory'
+import { PaymentsHistory } from '../PaymentsHistoryContainer'
 import { renderWithClient } from '../../test-utils'
 
 const mockFetch = vi.fn()

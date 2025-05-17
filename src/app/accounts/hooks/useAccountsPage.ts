@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Account, Filter, CardDetails } from "../types/accounts";
-import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants/accounts";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/app/constants";
 
 export const useAccountsPage = () => {
   const queryClient = useQueryClient();
@@ -58,8 +58,8 @@ export const useAccountsPage = () => {
     setPaymentSuccess(false);
   };
 
-  const handlePay = (card: CardDetails, amount: number) => {
-    paymentMutation.mutate({ card, amount });
+  const handlePay = async (card: CardDetails, amount: number) => {
+    return paymentMutation.mutateAsync({ card, amount });
   };
 
   const closeModal = () => {
