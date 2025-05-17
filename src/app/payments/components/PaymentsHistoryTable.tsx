@@ -38,9 +38,9 @@
 import { usePaymentHistory } from "../hooks/usePaymentHistory";
 
 export const PaymentsHistoryTable = () => {
-  const { payments, loading, error } = usePaymentHistory();
+  const { payments, isLoading, error } = usePaymentHistory();
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-grey-50 flex items-center justify-center">
         <div className="text-xl">Loading payment history...</div>
