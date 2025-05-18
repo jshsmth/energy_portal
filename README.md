@@ -1,6 +1,6 @@
 # Energy Portal Demo
 
-A demonstration web application showcasing Next.js 15's full-stack capabilities through an energy account management system. This project serves as a practical example of building modern web applications with TypeScript and Tailwind CSS.
+Built in a single day, this is a full-stack demo using Next.js 15 to simulate an energy account management system. It showcases modern development with API routes, responsive UI using Tailwind CSS, and strong TypeScript practices, all built rapidly to demonstrate quick turnaround and tech fluency.
 
 ## Demo Features
 
