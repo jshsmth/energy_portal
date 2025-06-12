@@ -30,8 +30,8 @@ export function EnergyAccountsContainer() {
 
   if (error) {
     return (
-      <div className={twMerge("min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans")}>
-        <main className={twMerge("max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12")}>
+      <div className={twMerge("min-h-screen main-bg-gradient font-sans")}>
+        <main className={twMerge("max-w-[1440px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 mt-14 sm:mt-16 md:mt-20")}>
           <AccountHeader />
           <div className={twMerge("bg-red-50 border border-red-200 rounded-lg p-4 text-red-600")}>
             {error}
@@ -43,10 +43,19 @@ export function EnergyAccountsContainer() {
 
   if (loading) {
     return (
-      <div className={twMerge("min-h-screen bg-gradient-to-br from-grey-50 via-white to-blue-50 font-sans")}>
-        <main className={twMerge("max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12")}>
-          <AccountHeader />
-          <AccountSkeleton />
+      <div className={twMerge("min-h-screen main-bg-gradient font-sans")}>
+        <main className={twMerge("max-w-[1440px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 mt-14 sm:mt-16 md:mt-20")}>
+          <div className={twMerge("flex flex-col lg:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8 items-start")}>
+            <aside className={twMerge("hidden lg:block w-72 sticky top-24 flex-shrink-0")}>
+              <div className={twMerge("bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md border border-blue-100 p-3 sm:p-4 md:p-5 lg:p-6 w-full max-w-xs h-[400px] animate-pulse")} />
+            </aside>
+            <section className={twMerge("flex-1 w-full")}>
+              <div className={twMerge("mb-4 sm:mb-5 md:mb-6 lg:mb-8")}>
+                <AccountHeader />
+              </div>
+              <AccountSkeleton />
+            </section>
+          </div>
         </main>
       </div>
     );
